@@ -90,5 +90,3 @@ stream_guide.add_streaming_service(stream_serv_2)
 stream_guide.add_streaming_service(stream_serv_3)
 stream_guide.delete_streaming_service('Hula')
 search_results = stream_guide.where_to_watch_movie('Little Women')
-
-print(search_results)
