@@ -29,9 +29,8 @@ class Movie:
     def get_year(self):
         return self.__year
 
-    "'I"'m adding an extra method to the movie class for testing purpose(optional)'"
-    "'def __str__(self):'"
-        #return self._title+"("+str(self._year)+"), Director: "+self._director+", Genre: "+self._genre"
+    def __str__(self):
+        return self._title+"("+str(self._year)+"), Director: "+self._director+", Genre: "+self._genre"
 
 "'write a class named StreamingService'"
 class StreamingService:
