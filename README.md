@@ -5,13 +5,11 @@
 
 class Movie:
     def __init__(self, title, genre, director, year):
-        "'since as mentioned in question all member variable should be private. they are starting with _(underscore)'"
         self._title = title
         self._genre = genre
         self._director = director
         self._year = year
 
-    "'getters for all 4 member variablesself.'"
     def get_title(self):
         return self._title
 
@@ -30,18 +28,15 @@ class StreamingService:
         self._name = name
         self._catalog = {}
 
-    "'getters for name and catalog.'"
     def get_name(self):
         return self._name
 
     def get_catalog(self):
         return self._catalog
 
-    "'a method named add_movie that takes a Movie object as an argument and adds it to the catalog.'"
     def add_movie(self, movie):
         self._catalog[movie.get_title()] = movie
 
-    "'a method named delete_movie that takes a movie title as an argument and if that Movie is in the catalog, removes it.'"
     def delete_movie(self, title):
         if title in self._catalog:
             del self._catalog[title]
@@ -66,7 +61,6 @@ class StreamingGuide:
             if title in service.get_catalog():
                 result.append(service.get_name())
         if len(result) == 0:
-            "'if its not available in any of the streaming service it should return None.'"
             return None
         else:
             movie = service.get_catalog()[title]
@@ -74,6 +68,7 @@ class StreamingGuide:
             return result
 
 
+"'below code is from question-unchanged.'"
 movie_1 = Movie('The Seventh Seal', 'comedy', 'Ingmar Bergman', 1957)
 movie_2 = Movie('Home Alone', 'tragedy', 'Chris Columbus', 1990)
 movie_3 = Movie('Little Women', 'action thriller', 'Greta Gerwig', 2019)
@@ -98,4 +93,5 @@ stream_guide.add_streaming_service(stream_serv_1)
 stream_guide.add_streaming_service(stream_serv_2)
 stream_guide.add_streaming_service(stream_serv_3)
 stream_guide.delete_streaming_service('Hula')
-search_results = stream_guide.where_to_watch_movie('Little Women')
+search_results = stream_guide.where_to_watch('Little Women')
+print(search_results)
