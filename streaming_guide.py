@@ -4,99 +4,114 @@
 # Description: Project 10
 
 class Movie:
+    "'an init method that takes as arguments the title, genre, director, and year'"
     def __init__(self, title, genre, director, year):
-        "'since as mentioned in question all member variable should be private. they are starting with _(underscore)'"
-        self._title = title
-        self._genre = genre
-        self._director = director
-        self._year = year
+        "'assigns the parameters to the data members'"
+        self.__title = title
+        self.__genre = genre
+        self.__director = director
+        self.__year = year
 
-    "'getters for all 4 member variablesself.'"
+    "'get methods for each of the data members'"
+    "'get method for the title'"
     def get_title(self):
-        return self._title
+        return self.__title
 
+    "'get method for the genre'"
     def get_genre(self):
-        return self._genre
+        return self.__genre
 
+    "'get method for the director'"
     def get_director(self):
-        return self._director
+        return self.__director
 
+    "'get method for the year'"
     def get_year(self):
-        return self._year
+        return self.__year
 
+    "'I"'m adding an extra method to the movie class for testing purpose(optional)'"
+    "'def __str__(self):'"
+        #return self._title+"("+str(self._year)+"), Director: "+self._director+", Genre: "+self._genre"
 
+"'write a class named StreamingService'"
 class StreamingService:
+    "'an init method that takes the name as an argument'"
     def __init__(self, name):
-        self._name = name
-        self._catalog = {}
+        "'assigns the parameter to the name data member'"
+        self.__name = name
+        "'the catalog data member should be empty'"
+        self.__catalog = []
 
-    "'getters for name and catalog.'"
+    "'get methods for each of the data members'"
+    "'get method for the name'"
     def get_name(self):
-        return self._name
+        return self.__name
 
+    "'get method for the catalog'"
     def get_catalog(self):
-        return self._catalog
+        return self.__catalog
 
-    "'a method named add_movie that takes a Movie object as an argument and adds it to the catalog.'"
+    "'method named add_movie that takes a Movie object as an argument'"
     def add_movie(self, movie):
-        self._catalog[movie.get_title()] = movie
+        # add the movie to the catalog
+        self.__catalog.append(movie)
 
-    "'a method named delete_movie that takes a movie title as an argument and if that Movie is in the catalog, removes it.'"
-    def delete_movie(self, title):
-        if title in self._catalog:
-            del self._catalog[title]
+    "'method named delete_movie that takes a movie title as an argument'"
+    def delete_movie(self, movie_title):
+        "'check if the given movie title is present in the catalog'"
+        for m in self.__catalog:
+            "'remove the movie from the catalog if the movie does exist in it'"
+            if m.get_title() == movie_title:
+                self.__catalog.remove(m)
 
-
+"'write a class named StreamingGuide'"
 class StreamingGuide:
+    "'an init method that takes no arguments'"
     def __init__(self):
-        self._listOfservices = []
+        "'initializes the services data member to an empty list'"
+        self._services = []
 
-    def add_streaming_service(self, service):
-        self._listOfservices.append(service)
+    "'method called add_streaming_service that takes a StreamingService object as an argument'"
+    def add_streaming_service(self, stream_service):
+        "'add the stream_service to the services list'"
+        self._services.append(stream_service)
 
-    def delete_streaming_service(self, name):
-        for service in self._listOfservices:
-            if service.get_name() == name:
-                self._listOfservices.remove(service)
-                break
+    "'method named delete_streaming_service that takes the name of a streaming service as an argument'"
+    def delete_streaming_service(self, service_name):
+        # check if the service is already present in the guide
+        for s in self._services:
+            # remove the service from the guide if it does exist in the guide
+            if s.get_name() == service_name:
+                self._services.remove(s)
 
-    def where_to_watch(self, title):
-        result = []
-        for service in self._listOfservices:
-            if title in service.get_catalog():
-                result.append(service.get_name())
-        if len(result) == 0:
-            "'If its not available in any of the streaming service it should return None.'"
-            return None
-        else:
-            movie = service.get_catalog()[title]
-            result.insert(0, f"{movie.get_title()} ({movie.get_year()})")
-            return result
+    "'method named where_to_watch_movie that takes a movie title as an argument'"
+    def where_to_watch_movie(self, movie_title):
+        "'create an empty result_guide list'"
+        result_guide = []
+        firstFound = False
 
+        "'check each service in the list'"
+        for i in range(len(self._services)):
+            "'get the catalog of each service in the guide'"
+            catalog = self._services[i].get_catalog()
+            "'check each movie in the catalog'"
+            for m in catalog:
+                "'when a match is found in the catalog'"
+                if m.get_title() == movie_title:
+                    "'when first match is found'"
+                    if firstFound == False:
+                        "'concatenate name & year of the movie (with the year in parentheses)'"
+                        movie = movie_title + '('+str(m.get_year())+')'
+                        "'append the movie as the first record in the result_guide'"
+                        result_guide.append(movie)
+                        "'set firstFound to true'"
+                        firstFound = True
+                    "'also append the service's name in the result_guide list'"
+                    result_guide.append(self._services[i].get_name())
 
-"'below code is from question-unchanged.'"
-movie_1 = Movie('The Seventh Seal', 'comedy', 'Ingmar Bergman', 1957)
-movie_2 = Movie('Home Alone', 'tragedy', 'Chris Columbus', 1990)
-movie_3 = Movie('Little Women', 'action thriller', 'Greta Gerwig', 2019)
-movie_4 = Movie('Galaxy Quest', 'historical documents', 'Dean Parisot', 1999)
+        "'return the result_guide list of where to watch the given movie'"
+        if firstFound == True:
+            return result_guide
 
-stream_serv_1 = StreamingService('Netflick')
-stream_serv_1.add_movie(movie_2)
-
-stream_serv_2 = StreamingService('Hula')
-stream_serv_2.add_movie(movie_1)
-stream_serv_2.add_movie(movie_4)
-stream_serv_2.delete_movie('The Seventh Seal')
-stream_serv_2.add_movie(movie_2)
-
-stream_serv_3 = StreamingService('Dizzy+')
-stream_serv_3.add_movie(movie_4)
-stream_serv_3.add_movie(movie_3)
-stream_serv_3.add_movie(movie_1)
-
-stream_guide = StreamingGuide()
-stream_guide.add_streaming_service(stream_serv_1)
-stream_guide.add_streaming_service(stream_serv_2)
-stream_guide.add_streaming_service(stream_serv_3)
-stream_guide.delete_streaming_service('Hula')
-search_results = stream_guide.where_to_watch('Little Women')
+        "'return None if no service is found'"
+        return None
