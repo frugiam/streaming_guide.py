@@ -29,9 +29,6 @@ class Movie:
     def get_year(self):
         return self.__year
 
-    def __str__(self):
-        return self._title+"("+str(self._year)+"), Director: "+self._director+", Genre: "+self._genre"
-
 "'write a class named StreamingService'"
 class StreamingService:
     "'an init method that takes the name as an argument'"
