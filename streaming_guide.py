@@ -44,20 +44,20 @@ class StreamingService:
 
 class StreamingGuide:
     def __init__(self):
-        self._listofservices = []
+        self._streamingguide = []
 
     def add_streaming_service(self, service):
-        self._listofservices.append(service)
+        self._streamingguide.append(service)
 
     def delete_streaming_service(self, name):
-        for service in self._listofservices:
+        for service in self._streamingguide:
             if service.get_name() == name:
-                self._listofservices.remove(service)
+                self._streamingguide.remove(service)
                 break
 
     def where_to_watch(self, title):
         result = []
-        for service in self._listofservices:
+        for service in self._streamingguide:
             if title in service.get_catalog():
                 result.append(service.get_name())
         if len(result) == 0:
