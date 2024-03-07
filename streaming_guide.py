@@ -44,20 +44,20 @@ class StreamingService:
 
 class StreamingGuide:
     def __init__(self):
-        self._listOfservices = []
+        self._listofservices = []
 
     def add_streaming_service(self, service):
-        self._listOfservices.append(service)
+        self._listofservices.append(service)
 
     def delete_streaming_service(self, name):
-        for service in self._listOfservices:
+        for service in self._listofservices:
             if service.get_name() == name:
-                self._listOfservices.remove(service)
+                self._listofservices.remove(service)
                 break
 
     def where_to_watch(self, title):
         result = []
-        for service in self._listOfservices:
+        for service in self._listofservices:
             if title in service.get_catalog():
                 result.append(service.get_name())
         if len(result) == 0:
@@ -66,32 +66,3 @@ class StreamingGuide:
             movie = service.get_catalog()[title]
             result.insert(0, f"{movie.get_title()} ({movie.get_year()})")
             return result
-
-
-"'below code is from question-unchanged.'"
-movie_1 = Movie('The Seventh Seal', 'comedy', 'Ingmar Bergman', 1957)
-movie_2 = Movie('Home Alone', 'tragedy', 'Chris Columbus', 1990)
-movie_3 = Movie('Little Women', 'action thriller', 'Greta Gerwig', 2019)
-movie_4 = Movie('Galaxy Quest', 'historical documents', 'Dean Parisot', 1999)
-
-stream_serv_1 = StreamingService('Netflick')
-stream_serv_1.add_movie(movie_2)
-
-stream_serv_2 = StreamingService('Hula')
-stream_serv_2.add_movie(movie_1)
-stream_serv_2.add_movie(movie_4)
-stream_serv_2.delete_movie('The Seventh Seal')
-stream_serv_2.add_movie(movie_2)
-
-stream_serv_3 = StreamingService('Dizzy+')
-stream_serv_3.add_movie(movie_4)
-stream_serv_3.add_movie(movie_3)
-stream_serv_3.add_movie(movie_1)
-
-stream_guide = StreamingGuide()
-stream_guide.add_streaming_service(stream_serv_1)
-stream_guide.add_streaming_service(stream_serv_2)
-stream_guide.add_streaming_service(stream_serv_3)
-stream_guide.delete_streaming_service('Hula')
-search_results = stream_guide.where_to_watch('Little Women')
-print(search_results)
